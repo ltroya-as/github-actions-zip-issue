@@ -1,0 +1,37 @@
+name: Folder Compression Workflow
+
+on: [push]
+
+jobs:
+  compress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Compress Folder
+        run: |
+          zip -r compressed_folder.zip .output .nuxt
+
+      - name: Upload Compressed Folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: compressed-folder
+          path: compressed_folder.zip
+
+  extract:
+    needs: compress
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Download Compressed Folder
+        uses: actions/download-artifact@v3
+        with:
+          name: compressed-folder
+
+      - name: Extract Folder
+        run: |
+          mkdir extracted_folder
+          unzip -q compressed_folder.zip -d extracted_folder
