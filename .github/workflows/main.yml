@@ -33,5 +33,4 @@ jobs:
 
       - name: Extract Folder
         run: |
-          mkdir extracted_folder
-          unzip -q compressed_folder.zip -d extracted_folder
+          unzip compressed_folder.zip
