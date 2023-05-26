@@ -33,4 +33,6 @@ jobs:
 
       - name: Extract Folder
         run: |
+          rm .output
+          rm .nuxt
           unzip compressed_folder.zip
